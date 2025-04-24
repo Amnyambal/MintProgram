@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MINT - Игровая площадка</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Rubik:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #1a1d24;
+      --text: #f4f4f4;
+      --accent: #00ffe7;
+      --card: #242833;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Rubik', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 40px;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    .back-btn {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      padding: 10px 20px;
+      background: rgba(0, 255, 231, 0.1);
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .back-btn:hover {
+      background: rgba(0, 255, 231, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .games-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .games-header h1 {
+      font-size: 2.5rem;
+      color: var(--accent);
+      margin-bottom: 10px;
+      text-shadow: 0 0 10px rgba(0, 255, 231, 0.5);
+    }
+
+    .games-header p {
+      font-size: 1.1rem;
+      opacity: 0.8;
+    }
+
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .game-card {
+      background: var(--card);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+      border: 1px solid rgba(0, 255, 231, 0.1);
+      position: relative;
+    }
+
+    .game-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 255, 231, 0.2);
+      border-color: var(--accent);
+    }
+
+    .game-preview {
+      height: 180px;
+      background: linear-gradient(135deg, #2e3192, #1bffff);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .game-info {
+      padding: 20px;
+    }
+
+    .game-info h3 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      color: var(--accent);
+    }
+
+    .game-info p {
+      margin-bottom: 20px;
+      opacity: 0.8;
+    }
+
+    .play-btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background: var(--accent);
+      color: var(--bg);
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-align: center;
+    }
+
+    .play-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px rgba(0, 255, 231, 0.5);
+    }
+
+    /* Анимации для превью игр */
+    .snake-preview {
+      width: 80%;
+      height: 80%;
+      position: relative;
+    }
+
+    .snake-preview::before {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: #fff;
+      border-radius: 3px;
+      animation: snakeMove 4s infinite linear;
+    }
+
+    @keyframes snakeMove {
+      0% { top: 0; left: 0; }
+      25% { top: 0; left: calc(100% - 20px); }
+      50% { top: calc(100% - 20px); left: calc(100% - 20px); }
+      75% { top: calc(100% - 20px); left: 0; }
+      100% { top: 0; left: 0; }
+    }
+
+    .tetris-preview {
+      width: 60%;
+      height: 80%;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 5px;
+    }
+
+    .tetris-block {
+      background: #fff;
+      opacity: 0;
+      animation: tetrisFall 2s infinite;
+    }
+
+    @keyframes tetrisFall {
+      0% { opacity: 0; transform: translateY(-20px); }
+      50% { opacity: 1; }
+      100% { opacity: 0; transform: translateY(20px); }
+    }
+  </style>
+</head>
+<body>
+  <a href="index.html" class="back-btn">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M19 12H5M12 19l-7-7 7-7"/>
+    </svg>
+    Назад в терминал
+  </a>
+
+  <div class="games-header">
+    <h1>Игровая площадка MINT</h1>
+    <p>Выберите игру и погрузитесь в мир программирования через практику</p>
+  </div>
+
+  <div class="games-grid">
+    <div class="game-card" onclick="window.location.href='games/snake.html'">
+      <div class="game-preview">
+        <div class="snake-preview"></div>
+      </div>
+      <div class="game-info">
+        <h3>Змейка</h3>
+        <p>Классическая игра на JavaScript. Управляйте змейкой с помощью клавиатуры.</p>
+        <div class="play-btn">Играть</div>
+      </div>
+    </div>
+
+    <div class="game-card" onclick="window.location.href='games/tetris.html'">
+      <div class="game-preview" style="background: linear-gradient(135deg, #d4145a, #fbb03b);">
+        <div class="tetris-preview">
+          <div class="tetris-block" style="animation-delay: 0.1s;"></div>
+          <div class="tetris-block" style="animation-delay: 0.3s;"></div>
+          <div class="tetris-block" style="animation-delay: 0.5s;"></div>
+          <div class="tetris-block" style="animation-delay: 0.7s;"></div>
+        </div>
+      </div>
+      <div class="game-info">
+        <h3>Тетрис</h3>
+        <p>Собирайте линии из падающих блоков. Испытайте свою реакцию.</p>
+        <div class="play-btn">Играть</div>
+      </div>
+    </div>
+
+    <div class="game-card" onclick="window.location.href='games/flappy.html'">
+      <div class="game-preview" style="background: linear-gradient(135deg, #009245, #fcee21);">
+        <!-- Превью для Flappy Bird -->
+      </div>
+      <div class="game-info">
+        <h3>Flappy Bird</h3>
+        <p>Пролетайте между трубами в этой культовой мобильной игре.</p>
+        <div class="play-btn">Играть</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Можно добавить анимации при загрузке
+    document.addEventListener('DOMContentLoaded', () => {
+      const cards = document.querySelectorAll('.game-card');
+      cards.forEach((card, index) => {
+        setTimeout(() => {
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        }, index * 200);
+      });
+    });
+  </script>
+</body>
+</html>

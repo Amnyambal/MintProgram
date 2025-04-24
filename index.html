@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MINT — Курсы программирования</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Rubik:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="logo-overlay" id="logoOverlay">
+    <div class="logo-animation">MINT</div>
+  </div>
+  <div class="particles" id="particles"></div>
+  <header>
+    <h1 class="logo" id="logo">MINT</h1>
+    <nav>
+      <a href="index.html">Главная</a>
+      <a href="курсы.html">Курсы</a>
+      <a href="отзывы.html">Отзывы</a>
+      <a href="контакты.html">Контакты</a>
+    </nav>
+    <button class="theme-toggle" id="themeToggle">
+      <span class="theme-icon">🌙</span>
+      <span class="theme-text">Тёмная</span>
+    </button>
+  </header>
+  <section class="hero">
+    <div class="hero-text" data-aos="fade-right">
+      <h2>Прокачайся с MINT</h2>
+      <p>Более 10 000 студентов уже начали путь в IT. Присоединяйся и ты!</p>
+      <div class="buttons">
+        <a href="python.html">Курс Python</a>
+        <a href="cpp.html">Курс C++</a>
+        <a href="javascript.html">Курс JavaScript</a>
+      </div>
+    </div>
+    <div class="hero-img" data-aos="fade-left">
+      <div class="terminal">
+        <div class="terminal-header">
+          <div class="terminal-dot red"></div>
+          <div class="terminal-dot yellow"></div>
+          <div class="terminal-dot green"></div>
+          <div class="terminal-title">MINT Terminal</div>
+        </div>
+        <div class="terminal-output">> Добро пожаловать в MINT-терминал</div>
+        <div class="terminal-input-line">
+          <span class="terminal-prompt">></span>
+          <input type="text" class="terminal-input" id="terminal-input" placeholder="Введите команду..." autocomplete="off" />
+        </div>
+      </div>
+    </div>
+  </section>
+  <section data-aos="fade-up">
+    <h2 class="section-title">Почему выбирают нас?</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>Практика с первого дня</h3>
+        <p>Ты сразу начнешь писать код, а не только слушать теорию.</p>
+      </div>
+      <div class="card">
+        <h3>Менторы из индустрии</h3>
+        <p>Наши преподаватели — опытные разработчики из крупных IT-компаний.</p>
+      </div>
+      <div class="card">
+        <h3>Онлайн и офлайн</h3>
+        <p>Выбирай удобный формат обучения и учись в своём ритме.</p>
+      </div>
+    </div>
+  </section>
+  <section data-aos="fade-up">
+    <h2 class="section-title">Наши технологии</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>Современные языки</h3>
+        <p>Python, JavaScript, C++, Go, Rust — изучай то, что востребовано сегодня.</p>
+      </div>
+      <div class="card">
+        <h3>Фреймворки</h3>
+        <p>Django, React, Vue.js, TensorFlow — полный стек разработки.</p>
+      </div>
+      <div class="card">
+        <h3>Инструменты</h3>
+        <p>Git, Docker, CI/CD — профессиональные инструменты в твоём арсенале.</p>
+      </div>
+    </div>
+  </section>
+  <footer>
+    © 2025 MINT. Все права защищены.
+  </footer>
+  <div class="scroll-top" id="scrollTop">↑</div>
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MINT — Оплата курса</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Rubik:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .payment-container {
+      max-width: 800px;
+      margin: 40px auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+    
+    .payment-card {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 40px;
+      box-shadow: 0 10px 30px rgba(0, 255, 231, 0.1);
+    }
+    
+    .payment-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    
+    .payment-icon {
+      font-size: 3rem;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+    
+    .payment-title {
+      color: var(--accent);
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+    
+    .payment-summary {
+      margin-bottom: 30px;
+    }
+    
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid rgba(0, 255, 231, 0.1);
+    }
+    
+    .summary-total {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: var(--accent);
+    }
+    
+    .payment-form .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--accent);
+    }
+    
+    .form-input {
+      width: 100%;
+      padding: 12px 16px;
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(0, 255, 231, 0.3);
+      border-radius: 8px;
+      color: var(--text);
+      font-family: 'Rubik', sans-serif;
+      transition: all 0.3s ease;
+    }
+    
+    .form-input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 10px rgba(0, 255, 231, 0.2);
+    }
+    
+    .card-icons {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    
+    .card-icon {
+      width: 40px;
+      height: 25px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+    }
+    
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+    
+    .submit-btn {
+      width: 100%;
+      padding: 16px;
+      background: var(--accent);
+      color: var(--bg);
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 20px;
+    }
+    
+    .submit-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 255, 231, 0.3);
+    }
+    
+    .payment-security {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 30px;
+      color: #aaa;
+      font-size: 0.9rem;
+    }
+    
+    .payment-success {
+      text-align: center;
+      padding: 40px;
+      display: none;
+    }
+    
+    .success-icon {
+      font-size: 5rem;
+      color: #4CAF50;
+      margin-bottom: 20px;
+      animation: bounce 1s;
+    }
+    
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+      40% {transform: translateY(-30px);}
+      60% {transform: translateY(-15px);}
+    }
+    
+    .success-title {
+      color: var(--accent);
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+    
+    .success-text {
+      color: #aaa;
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+    
+    .payment-methods {
+      margin-top: 40px;
+    }
+    
+    .method-title {
+      color: var(--accent);
+      margin-bottom: 15px;
+    }
+    
+    .method-btns {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 10px;
+    }
+    
+    .method-btn {
+      background: rgba(0, 255, 231, 0.1);
+      border: 1px solid rgba(0, 255, 231, 0.3);
+      border-radius: 8px;
+      padding: 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .method-btn:hover {
+      background: rgba(0, 255, 231, 0.2);
+      border-color: var(--accent);
+    }
+    
+    .method-btn.active {
+      background: rgba(0, 255, 231, 0.3);
+      border-color: var(--accent);
+      box-shadow: 0 0 10px rgba(0, 255, 231, 0.2);
+    }
+  </style>
+</head>
+<body>
+  <div class="logo-overlay" id="logoOverlay">
+    <div class="logo-animation">ОПЛАТА</div>
+  </div>
+  <div class="particles" id="particles"></div>
+  <header>
+    <h1 class="logo" id="logo">MINT</h1>
+    <nav>
+      <a href="index.html">Главная</a>
+      <a href="курсы.html">Курсы</a>
+      <a href="отзывы.html">Отзывы</a>
+      <a href="контакты.html">Контакты</a>
+    </nav>
+    <button class="theme-toggle" id="themeToggle">
+      <span class="theme-icon">🌙</span>
+      <span class="theme-text">Тёмная</span>
+    </button>
+  </header>
+
+  <section data-aos="fade-up">
+    <div class="payment-container">
+      <div class="payment-card">
+        <div class="payment-header">
+          <div class="payment-icon">💳</div>
+          <h2 class="payment-title">Оплата курса</h2>
+          <p>Заполните данные для оплаты</p>
+        </div>
+        
+        <div class="payment-summary">
+          <div class="summary-item">
+            <span>Курс:</span>
+            <span id="course-name">Python Developer</span>
+          </div>
+          <div class="summary-item">
+            <span>Стоимость:</span>
+            <span id="course-price">24 900 ₽</span>
+          </div>
+          <div class="summary-item">
+            <span>Скидка:</span>
+            <span id="course-discount">-2 000 ₽</span>
+          </div>
+          <div class="summary-item summary-total">
+            <span>Итого:</span>
+            <span id="course-total">22 900 ₽</span>
+          </div>
+        </div>
+        
+        <div class="payment-methods">
+          <h3 class="method-title">Способ оплаты</h3>
+          <div class="method-btns">
+            <div class="method-btn active" data-method="card">
+              💳 Карта
+            </div>
+            <div class="method-btn" data-method="paypal">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" width="60" alt="PayPal">
+            </div>
+            <div class="method-btn" data-method="crypto">
+              ₿ Криптовалюта
+            </div>
+            <div class="method-btn" data-method="invoice">
+              🧾 Счёт
+            </div>
+          </div>
+        </div>
+        
+        <form class="payment-form" id="paymentForm">
+          <div class="form-group">
+            <label for="cardNumber" class="form-label">Номер карты</label>
+            <input type="text" id="cardNumber" class="form-input" placeholder="1234 5678 9012 3456" maxlength="19">
+            <div class="card-icons">
+              <div class="card-icon">VISA</div>
+              <div class="card-icon">MC</div>
+              <div class="card-icon">MIR</div>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="cardName" class="form-label">Имя на карте</label>
+            <input type="text" id="cardName" class="form-input" placeholder="IVAN IVANOV">
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="cardExpiry" class="form-label">Срок действия</label>
+              <input type="text" id="cardExpiry" class="form-input" placeholder="MM/ГГ" maxlength="5">
+            </div>
+            <div class="form-group">
+              <label for="cardCvv" class="form-label">CVV/CVC</label>
+              <input type="text" id="cardCvv" class="form-input" placeholder="123" maxlength="3">
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="email" class="form-label">Email для чека</label>
+            <input type="email" id="email" class="form-input" placeholder="ваш@email.com">
+          </div>
+          
+          <button type="submit" class="submit-btn">Оплатить 22 900 ₽</button>
+          
+          <div class="payment-security">
+            <span>🔒 Безопасная оплата</span>
+          </div>
+        </form>
+      </div>
+      
+      <div class="payment-card">
+        <div class="payment-header">
+          <div class="payment-icon">📚</div>
+          <h2 class="payment-title">Ваш заказ</h2>
+          <p>Python Developer</p>
+        </div>
+        
+        <div style="margin: 30px 0;">
+          <img src="https://cdn-icons-png.flaticon.com/512/5968/5968350.png" alt="Python" style="width: 100px; display: block; margin: 0 auto;">
+        </div>
+        
+        <div style="margin-bottom: 30px;">
+          <h3 style="color: var(--accent); margin-bottom: 15px;">Что включено:</h3>
+          <ul style="color: #aaa; line-height: 1.8; padding-left: 20px;">
+            <li>Доступ ко всем урокам (120+)</li>
+            <li>Практические задания с проверкой</li>
+            <li>Поддержка ментора</li>
+            <li>Сертификат об окончании</li>
+            <li>Доступ в закрытое сообщество</li>
+            <li>Помощь с трудоустройством</li>
+          </ul>
+        </div>
+        
+        <div style="border-top: 1px solid rgba(0, 255, 231, 0.1); padding-top: 20px;">
+          <h3 style="color: var(--accent); margin-bottom: 15px;">Гарантия возврата</h3>
+          <p style="color: #aaa; line-height: 1.6;">Если в течение 14 дней курс вам не подойдёт, мы вернём деньги без лишних вопросов.</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="payment-card payment-success" id="paymentSuccess">
+      <div class="success-icon">✓</div>
+      <h2 class="success-title">Оплата принята!</h2>
+      <p class="success-text">
+        Спасибо за покупку курса! Наш менеджер свяжется с вами в течение 2 часов для подтверждения заказа 
+        и предоставления доступа к материалам курса.
+      </p>
+      <a href="index.html" class="submit-btn">Вернуться на главную</a>
+    </div>
+  </section>
+
+  <footer>
+    © 2025 MINT. Все права защищены.
+  </footer>
+  <div class="scroll-top" id="scrollTop">↑</div>
+
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('logo').addEventListener('click', function() {
+        const overlay = document.getElementById('logoOverlay');
+        overlay.querySelector('.logo-animation').textContent = 'ОПЛАТА';
+        overlay.classList.add('active');
+        
+        setTimeout(() => {
+          overlay.classList.remove('active');
+        }, 2000);
+      });
+      
+      // Генерация частиц
+      const particlesContainer = document.getElementById('particles');
+      const particleCount = 20;
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+          
+        const size = Math.random() * 10 + 5;
+        const posX = Math.random() * 100;
+        const posY = Math.random() * 100;
+        const duration = Math.random() * 20 + 10;
+        const delay = Math.random() * 10;
+          
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.left = `${posX}%`;
+        particle.style.top = `${posY}%`;
+        particle.style.animationDuration = `${duration}s`;
+        particle.style.animationDelay = `${delay}s`;
+        particle.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--accent');
+        particle.style.opacity = '0.6';
+          
+        particlesContainer.appendChild(particle);
+      }
+      
+      // Форматирование номера карты
+      const cardNumber = document.getElementById('cardNumber');
+      cardNumber.addEventListener('input', function(e) {
+        let value = e.target.value.replace(/\s+/g, '');
+        if (value.length > 0) {
+          value = value.match(new RegExp('.{1,4}', 'g')).join(' ');
+        }
+        e.target.value = value;
+      });
+      
+      // Форматирование срока действия
+      const cardExpiry = document.getElementById('cardExpiry');
+      cardExpiry.addEventListener('input', function(e) {
+        let value = e.target.value.replace(/\D/g, '');
+        if (value.length >= 2) {
+          value = value.substring(0, 2) + '/' + value.substring(2, 4);
+        }
+        e.target.value = value;
+      });
+      
+      // Выбор способа оплаты
+      document.querySelectorAll('.method-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          document.querySelectorAll('.method-btn').forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+        });
+      });
+      
+      // "Оплата" - просто показывает сообщение об успехе
+      document.getElementById('paymentForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Анимация кнопки
+        const btn = this.querySelector('button');
+        btn.textContent = 'Обработка...';
+        btn.disabled = true;
+        
+        // Имитация обработки платежа
+        setTimeout(() => {
+          document.querySelector('.payment-container').style.display = 'none';
+          document.getElementById('paymentSuccess').style.display = 'block';
+          AOS.refresh(); // Обновляем анимации
+        }, 1500);
+      });
+      
+      // Загрузка данных курса из URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const course = urlParams.get('course');
+      const price = urlParams.get('price');
+      
+      if (course && price) {
+        document.getElementById('course-name').textContent = course;
+        document.getElementById('course-price').textContent = price + ' ₽';
+        
+        // Рассчитываем скидку и итого (просто для примера)
+        const discount = Math.floor(parseInt(price) * 0.08);
+        const total = parseInt(price) - discount;
+        
+        document.getElementById('course-discount').textContent = '-' + discount + ' ₽';
+        document.getElementById('course-total').textContent = total + ' ₽';
+        document.querySelector('.submit-btn').textContent = 'Оплатить ' + total + ' ₽';
+      }
+      
+      AOS.init();
+    });
+  </script>
+</body>
+</html>

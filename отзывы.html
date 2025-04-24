@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MINT — Отзывы</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Rubik:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    :root {
+      --bg: #121212;
+      --card: #1e1e1e;
+      --text: #e0e0e0;
+      --accent: #00ffcc;
+      --dropdown-bg: #2a2a2a;
+      --dropdown-text: #ffffff;
+    }
+    
+    .reviews-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+    
+    .review-card {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 30px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      border-left: 4px solid var(--accent);
+    }
+    
+    .review-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0, 255, 231, 0.2);
+    }
+    
+    .review-name {
+      color: var(--accent);
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+    }
+    
+    .review-course {
+      color: #aaa;
+      font-size: 0.9rem;
+      margin-bottom: 5px;
+    }
+    
+    .review-rating {
+      color: gold;
+      margin-bottom: 15px;
+      font-size: 1.2rem;
+      text-shadow: 0 0 3px rgba(0,0,0,0.5); /* Добавляем тень для лучшей видимости */
+    }
+    
+    .review-text {
+      color: var(--text);
+      line-height: 1.6;
+    }
+    
+    .form-container {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 40px;
+      margin-top: 60px;
+      box-shadow: 0 0 20px rgba(0, 255, 204, 0.1);
+    }
+    
+    .form-review {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-group.full-width {
+      grid-column: span 2;
+    }
+    
+    .form-label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--accent);
+    }
+    
+    .form-input, .form-textarea, .form-select {
+      width: 100%;
+      padding: 12px 16px;
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(0, 255, 231, 0.3);
+      border-radius: 8px;
+      color: var(--text);
+      font-family: 'Rubik', sans-serif;
+      transition: all 0.3s ease;
+    }
+    
+    .form-input:focus, .form-textarea:focus, .form-select:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 10px rgba(0, 255, 231, 0.2);
+    }
+    
+    .form-textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+    
+    /* Стили для выпадающего списка */
+    .form-select {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300ffcc'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 16px;
+    }
+    
+    /* Стили для опций в выпадающем списке */
+    .form-select option {
+      background: var(--dropdown-bg);
+      color: var(--dropdown-text);
+      padding: 10px;
+    }
+    
+    .submit-btn {
+      grid-column: span 2;
+      background: var(--accent);
+      color: var(--bg);
+      border: none;
+      padding: 16px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 1rem;
+    }
+    
+    .submit-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 255, 231, 0.3);
+    }
+  </style>
+</head>
+<body>
+  <div class="logo-overlay" id="logoOverlay">
+    <div class="logo-animation">ОТЗЫВЫ</div>
+  </div>
+  <div class="particles" id="particles"></div>
+  <header>
+    <h1 class="logo" id="logo">MINT</h1>
+    <nav>
+      <a href="index.html">Главная</a>
+      <a href="курсы.html#courses">Курсы</a>
+      <a href="отзывы.html">Отзывы</a>
+      <a href="контакты.html">Контакты</a>
+    </nav>
+    <button class="theme-toggle" id="themeToggle">
+      <span class="theme-icon">🌙</span>
+      <span class="theme-text">Тёмная</span>
+    </button>
+  </header>
+
+  <section data-aos="fade-up">
+    <h2 class="section-title">Отзывы наших студентов</h2>
+    <p style="text-align: center; margin-bottom: 40px; color: #aaa;">Реальные отзывы от тех, кто уже прошёл наши курсы</p>
+    
+    <div id="reviews-container" class="reviews-container">
+      <!-- Reviews will be loaded here -->
+    </div>
+    
+    <div class="form-container" data-aos="fade-up">
+      <h3 style="text-align: center; margin-bottom: 30px; color: var(--accent);">Оставить свой отзыв</h3>
+      <form id="reviewForm" class="form-review">
+        <div class="form-group">
+          <label for="nameInput" class="form-label">Ваше имя</label>
+          <input type="text" id="nameInput" class="form-input" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="courseInput" class="form-label">Курс</label>
+          <select id="courseInput" class="form-select" required>
+            <option value="" disabled selected>Выберите курс</option>
+            <option value="Python">Python</option>
+            <option value="C++">C++</option>
+            <option value="JavaScript">JavaScript</option>
+            <option value="Web Development">Web Development</option>
+            <option value="Data Science">Data Science</option>
+          </select>
+        </div>
+        
+        <div class="form-group full-width">
+          <label for="textInput" class="form-label">Ваш отзыв</label>
+          <textarea id="textInput" class="form-textarea" required></textarea>
+        </div>
+        
+        <div class="form-group">
+          <label for="ratingInput" class="form-label">Оценка</label>
+          <select id="ratingInput" class="form-select" required>
+            <option value="" disabled selected>Выберите оценку</option>
+            <option value="★★★★★">★★★★★ - Отлично</option>
+            <option value="★★★★☆">★★★★☆ - Хорошо</option>
+            <option value="★★★☆☆">★★★☆☆ - Удовлетворительно</option>
+            <option value="★★☆☆☆">★★☆☆☆ - Плохо</option>
+            <option value="★☆☆☆☆">★☆☆☆☆ - Ужасно</option>
+          </select>
+        </div>
+        
+        <button type="submit" class="submit-btn">Отправить отзыв</button>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    © 2025 MINT. Все права защищены.
+  </footer>
+  <div class="scroll-top" id="scrollTop">↑</div>
+
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script src="script.js"></script>
+  <script>
+    // Инициализация AOS
+    AOS.init();
+    
+    // Загрузка и сохранение отзывов
+    document.addEventListener('DOMContentLoaded', function() {
+      loadReviews();
+      
+      document.getElementById('logo').addEventListener('click', function() {
+        const overlay = document.getElementById('logoOverlay');
+        overlay.querySelector('.logo-animation').textContent = 'ОТЗЫВЫ';
+        overlay.classList.add('active');
+        
+        setTimeout(() => {
+          overlay.classList.remove('active');
+        }, 2000);
+      });
+      
+      // Генерация частиц
+      const particlesContainer = document.getElementById('particles');
+      const particleCount = 20;
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+          
+        const size = Math.random() * 10 + 5;
+        const posX = Math.random() * 100;
+        const posY = Math.random() * 100;
+        const duration = Math.random() * 20 + 10;
+        const delay = Math.random() * 10;
+          
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.left = `${posX}%`;
+        particle.style.top = `${posY}%`;
+        particle.style.animationDuration = `${duration}s`;
+        particle.style.animationDelay = `${delay}s`;
+        particle.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--accent');
+        particle.style.opacity = '0.6';
+          
+        particlesContainer.appendChild(particle);
+      }
+    });
+    
+    function loadReviews() {
+      const reviews = JSON.parse(localStorage.getItem('mintReviews')) || [];
+      const container = document.getElementById('reviews-container');
+      
+      if (reviews.length === 0) {
+        container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #aaa;">Пока нет отзывов. Будьте первым!</p>';
+        return;
+      }
+      
+      container.innerHTML = reviews.map(review => `
+        <div class="review-card" data-aos="fade-up">
+          <h3 class="review-name">${review.name}</h3>
+          <p class="review-course">Курс: ${review.course}</p>
+          <p class="review-rating">${review.rating}</p>
+          <p class="review-text">${review.text}</p>
+        </div>
+      `).join('');
+    }
+    
+    document.getElementById('reviewForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const name = document.getElementById('nameInput').value.trim();
+      const course = document.getElementById('courseInput').value;
+      const text = document.getElementById('textInput').value.trim();
+      const rating = document.getElementById('ratingInput').value;
+      
+      if (!name || !course || !text || !rating) {
+        alert('Пожалуйста, заполните все поля');
+        return;
+      }
+      
+      const review = { name, course, text, rating };
+      const reviews = JSON.parse(localStorage.getItem('mintReviews')) || [];
+      reviews.unshift(review); // Добавляем в начало
+      localStorage.setItem('mintReviews', JSON.stringify(reviews));
+      
+      loadReviews();
+      this.reset();
+      
+      // Сброс выпадающих списков к первому пункту
+      document.getElementById('courseInput').selectedIndex = 0;
+      document.getElementById('ratingInput').selectedIndex = 0;
+      
+      // Анимация успешной отправки
+      const btn = this.querySelector('button');
+      btn.textContent = 'Отправлено!';
+      btn.style.backgroundColor = '#00C853';
+      
+      setTimeout(() => {
+        btn.textContent = 'Отправить отзыв';
+        btn.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--accent');
+      }, 2000);
+    });
+  </script>
+</body>
+</html>

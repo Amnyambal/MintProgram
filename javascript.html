@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MINT — Курс Java</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Rubik:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .lesson-container {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 40px;
+      margin: 40px 0;
+    }
+    
+    .lesson-title {
+      color: var(--accent);
+      margin-bottom: 20px;
+      font-size: 1.8rem;
+    }
+    
+    .lesson-content {
+      line-height: 1.8;
+      color: var(--text);
+    }
+    
+    .lesson-content pre {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.9rem;
+      margin: 20px 0;
+      border-left: 3px solid var(--accent);
+    }
+    
+    .lesson-content code {
+      font-family: 'Fira Code', monospace;
+      background: rgba(0, 255, 231, 0.1);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9rem;
+    }
+    
+    .lesson-content h3 {
+      color: var(--accent);
+      margin: 30px 0 15px;
+      font-size: 1.4rem;
+    }
+    
+    .lesson-content ul, .lesson-content ol {
+      margin: 20px 0;
+      padding-left: 30px;
+    }
+    
+    .lesson-content li {
+      margin-bottom: 10px;
+    }
+    
+    .try-it {
+      background: rgba(0, 255, 231, 0.1);
+      border-left: 3px solid var(--accent);
+      padding: 20px;
+      border-radius: 0 8px 8px 0;
+      margin: 30px 0;
+    }
+    
+    .try-it h4 {
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+    
+    .terminal-window {
+      background: #1e1e1e;
+      border-radius: 8px;
+      padding: 15px;
+      font-family: 'Fira Code', monospace;
+      margin: 20px 0;
+    }
+    
+    .terminal-line {
+      margin-bottom: 8px;
+    }
+    
+    .terminal-prompt {
+      color: #4CAF50;
+    }
+    
+    .terminal-output {
+      color: #9E9E9E;
+    }
+    
+    .next-lesson {
+      text-align: center;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+  <div class="logo-overlay" id="logoOverlay">
+    <div class="logo-animation">JAVA</div>
+  </div>
+  <div class="particles" id="particles"></div>
+  <header>
+    <h1 class="logo" id="logo">MINT</h1>
+    <nav>
+      <a href="index.html">Главная</a>
+      <a href="курсы.html">Курсы</a>
+      <a href="отзывы.html">Отзывы</a>
+      <a href="контакты.html">Контакты</a>
+    </nav>
+    <button class="theme-toggle" id="themeToggle">
+      <span class="theme-icon">🌙</span>
+      <span class="theme-text">Тёмная</span>
+    </button>
+  </header>
+
+  <section class="course-hero" data-aos="fade-up">
+    <div class="java-icon">☕</div>
+    <h1 class="section-title">Начальный курс Java</h1>
+    <p>Освойте самый популярный язык для enterprise-разработки</p>
+  </section>
+
+  <section data-aos="fade-up">
+    <div class="lesson-container">
+      <h2 class="lesson-title">Урок 1: Основы Java</h2>
+      <div class="lesson-content">
+        <h3>Что такое Java?</h3>
+        <p>Java — это объектно-ориентированный язык программирования, который работает на виртуальной машине Java (JVM). Он используется для:</p>
+        <ul>
+          <li>Корпоративных приложений (Spring, Hibernate)</li>
+          <li>Android-разработки</li>
+          <li>Веб-приложений (Java EE)</li>
+          <li>Больших данных (Hadoop, Spark)</li>
+          <li>Финансовых систем</li>
+        </ul>
+        
+        <h3>Установка JDK</h3>
+        <p>Скачайте <a href="https://www.oracle.com/java/technologies/javase-downloads.html" style="color: var(--accent);">JDK</a> (Java Development Kit) с официального сайта Oracle.</p>
+        <p>Проверьте установку:</p>
+        
+        <div class="terminal-window">
+          <div class="terminal-line"><span class="terminal-prompt">$ </span>java -version</div>
+          <div class="terminal-line terminal-output">java version "17.0.1" 2021-10-19 LTS</div>
+        </div>
+        
+        <h3>Первая программа</h3>
+        <p>Создайте файл <code>HelloWorld.java</code>:</p>
+        
+        <pre>public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Привет, мир!");
+    }
+}</pre>
+        
+        <p>Скомпилируйте и запустите:</p>
+        
+        <div class="terminal-window">
+          <div class="terminal-line"><span class="terminal-prompt">$ </span>javac HelloWorld.java</div>
+          <div class="terminal-line"><span class="terminal-prompt">$ </span>java HelloWorld</div>
+          <div class="terminal-line terminal-output">Привет, мир!</div>
+        </div>
+        
+        <div class="try-it">
+          <h4>Попробуйте сами:</h4>
+          <p>Измените программу, чтобы она выводила ваше имя вместо "Привет, мир!"</p>
+        </div>
+        
+        <h3>Переменные и типы данных</h3>
+        <p>В Java нужно явно указывать тип переменной:</p>
+        
+        <pre>String name = "Алексей";  // Строка
+int age = 25;           // Целое число
+double height = 1.75;   // Число с плавающей точкой
+boolean isStudent = true; // Логическое значение</pre>
+        
+        <p>Основные типы данных:</p>
+        <ul>
+          <li><code>byte</code>, <code>short</code>, <code>int</code>, <code>long</code> - целые числа</li>
+          <li><code>float</code>, <code>double</code> - числа с плавающей точкой</li>
+          <li><code>char</code> - символ</li>
+          <li><code>boolean</code> - логическое значение</li>
+          <li><code>String</code> - строки</li>
+        </ul>
+        
+        <h3>Условные операторы</h3>
+        <p>Управление потоком выполнения:</p>
+        
+        <pre>int age = 18;
+
+if (age >= 18) {
+    System.out.println("Вы совершеннолетний");
+} else {
+    System.out.println("Вы несовершеннолетний");
+}</pre>
+        
+        <div class="try-it">
+          <h4>Попробуйте сами:</h4>
+          <p>Напишите программу, которая проверяет, является ли число чётным.</p>
+        </div>
+        
+        <h3>Циклы</h3>
+        <p>Цикл <code>for</code>:</p>
+        <pre>for (int i = 0; i < 5; i++) {
+    System.out.println("Итерация " + i);
+}</pre>
+        
+        <p>Цикл <code>while</code>:</p>
+        <pre>int count = 0;
+while (count < 5) {
+    System.out.println(count);
+    count++;
+}</pre>
+        
+        <h3>Функции (методы)</h3>
+        <p>Методы позволяют повторно использовать код:</p>
+        
+        <pre>public class Greeter {
+    public static String greet(String name) {
+        return "Привет, " + name + "!";
+    }
+    
+    public static void main(String[] args) {
+        String message = greet("Анна");
+        System.out.println(message);
+    }
+}</pre>
+        
+        <div class="try-it">
+          <h4>Попробуйте сами:</h4>
+          <p>Создайте метод, который принимает два числа и возвращает их сумму.</p>
+        </div>
+      </div>
+      
+      <div class="next-lesson">
+        <a href="оплата.html" class="buttons" style="display: inline-block; padding: 15px 40px; font-size: 1.2rem;">
+          Продолжить обучение (полная версия)
+        </a>
+        <p style="margin-top: 20px; color: #aaa;">В полной версии: ООП, Коллекции, Исключения, Многопоточность, Spring и многое другое</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © 2025 MINT. Все права защищены.
+  </footer>
+  <div class="scroll-top" id="scrollTop">↑</div>
+
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('logo').addEventListener('click', function() {
+        const overlay = document.getElementById('logoOverlay');
+        overlay.querySelector('.logo-animation').textContent = 'JAVA';
+        overlay.classList.add('active');
+        
+        setTimeout(() => {
+          overlay.classList.remove('active');
+        }, 2000);
+      });
+      
+      // Генерация частиц с цветом Java (#E76F00)
+      const particlesContainer = document.getElementById('particles');
+      const particleCount = 20;
+      const javaColor = '#E76F00';
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+          
+        const size = Math.random() * 10 + 5;
+        const posX = Math.random() * 100;
+        const posY = Math.random() * 100;
+        const duration = Math.random() * 20 + 10;
+        const delay = Math.random() * 10;
+          
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.left = `${posX}%`;
+        particle.style.top = `${posY}%`;
+        particle.style.animationDuration = `${duration}s`;
+        particle.style.animationDelay = `${delay}s`;
+        particle.style.backgroundColor = javaColor;
+        particle.style.opacity = '0.6';
+          
+        particlesContainer.appendChild(particle);
+      }
+      
+      AOS.init();
+    });
+  </script>
+</body>
+</html>

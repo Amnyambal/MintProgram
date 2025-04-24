@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MINT — Все курсы</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Rubik:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Стили для демо-версий курсов */
+    .demo-courses {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin: 40px 0;
+    }
+    
+    .demo-card {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 30px;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(0, 255, 231, 0.1);
+      text-align: center;
+    }
+    
+    .demo-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0, 255, 231, 0.2);
+    }
+    
+    .demo-icon {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      color: var(--accent);
+    }
+    
+    .demo-title {
+      color: var(--accent);
+      margin-bottom: 15px;
+    }
+    
+    .demo-btn {
+      display: inline-block;
+      padding: 12px 30px;
+      background: var(--accent);
+      color: var(--bg);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      margin-top: 20px;
+    }
+    
+    .demo-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 255, 231, 0.3);
+    }
+    
+    /* Стили для платных курсов */
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 30px;
+      margin: 40px 0;
+    }
+    
+    .course-card {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 30px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(0, 255, 231, 0.1);
+    }
+    
+    .course-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0, 255, 231, 0.2);
+    }
+    
+    .course-badge {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: #FF5722;
+      color: white;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+    
+    .course-icon {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: var(--accent);
+    }
+    
+    .course-title {
+      color: var(--accent);
+      margin-bottom: 15px;
+      font-size: 1.5rem;
+    }
+    
+    .course-desc {
+      color: #aaa;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+    
+    .course-meta {
+      display: flex;
+      justify-content: space-between;
+      color: #777;
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+    }
+    
+    .course-price {
+      font-size: 1.5rem;
+      color: var(--accent);
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+    
+    .buy-btn {
+      display: block;
+      text-align: center;
+      padding: 12px;
+      background: var(--accent);
+      color: var(--bg);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .buy-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 255, 231, 0.3);
+    }
+    
+    /* Стили для теста */
+    .test-container {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 40px;
+      margin: 60px 0;
+    }
+    
+    .test-question {
+      margin-bottom: 30px;
+      display: none;
+    }
+    
+    .test-question.active {
+      display: block;
+    }
+    
+    .test-options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-top: 20px;
+    }
+    
+    .test-option {
+      background: rgba(0, 255, 231, 0.1);
+      border: 1px solid rgba(0, 255, 231, 0.3);
+      border-radius: 8px;
+      padding: 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .test-option:hover {
+      background: rgba(0, 255, 231, 0.2);
+      border-color: var(--accent);
+    }
+    
+    .test-option.selected {
+      background: rgba(0, 255, 231, 0.3);
+      border-color: var(--accent);
+      box-shadow: 0 0 10px rgba(0, 255, 231, 0.2);
+    }
+    
+    .test-nav {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 30px;
+    }
+    
+    .test-btn {
+      padding: 12px 25px;
+      background: var(--accent);
+      color: var(--bg);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .test-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 255, 231, 0.3);
+    }
+    
+    .test-btn:disabled {
+      background: #555;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+    
+    .test-progress {
+      height: 5px;
+      background: rgba(0, 255, 231, 0.2);
+      border-radius: 5px;
+      margin-bottom: 30px;
+      overflow: hidden;
+    }
+    
+    .test-progress-bar {
+      height: 100%;
+      background: var(--accent);
+      width: 0%;
+      transition: width 0.5s ease;
+    }
+    
+    .test-result {
+      display: none;
+      text-align: center;
+      padding: 30px;
+    }
+    
+    .result-icon {
+      font-size: 4rem;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+    
+    .result-title {
+      color: var(--accent);
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+    
+    .result-desc {
+      color: #aaa;
+      max-width: 600px;
+      margin: 0 auto 30px;
+      line-height: 1.6;
+    }
+    
+    .result-course {
+      background: rgba(0, 255, 231, 0.1);
+      border-radius: 12px;
+      padding: 20px;
+      max-width: 500px;
+      margin: 0 auto 30px;
+    }
+    
+    .result-course-title {
+      color: var(--accent);
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="logo-overlay" id="logoOverlay">
+    <div class="logo-animation">КУРСЫ</div>
+  </div>
+  <div class="particles" id="particles"></div>
+  <header>
+    <h1 class="logo" id="logo">MINT</h1>
+    <nav>
+      <a href="index.html">Главная</a>
+      <a href="курсы.html">Курсы</a>
+      <a href="отзывы.html">Отзывы</a>
+      <a href="контакты.html">Контакты</a>
+    </nav>
+    <button class="theme-toggle" id="themeToggle">
+      <span class="theme-icon">🌙</span>
+      <span class="theme-text">Тёмная</span>
+    </button>
+  </header>
+
+  <section data-aos="fade-up">
+    <h2 class="section-title">Бесплатные пробные уроки</h2>
+    <p style="text-align: center; margin-bottom: 40px; color: #aaa;">
+      Попробуйте наши курсы бесплатно перед покупкой
+    </p>
+    
+    <div class="demo-courses">
+      <div class="demo-card" data-aos="fade-up">
+        <div class="demo-icon">🐍</div>
+        <h3 class="demo-title">Python для начинающих</h3>
+        <p>3 бесплатных урока с практическими заданиями и поддержкой</p>
+        <a href="python.html" class="demo-btn">Начать обучение</a>
+      </div>
+      
+      <div class="demo-card" data-aos="fade-up" data-aos-delay="100">
+        <div class="demo-icon">{ }</div>
+        <h3 class="demo-title">C++ для профессионалов</h3>
+        <p>Основы языка и первое приложение за 2 бесплатных урока</p>
+        <a href="cpp.html" class="demo-btn">Начать обучение</a>
+      </div>
+      
+      <div class="demo-card" data-aos="fade-up" data-aos-delay="200">
+        <div class="demo-icon">☕</div>
+        <h3 class="demo-title">Java-разработка</h3>
+        <p>Познакомьтесь с enterprise-разработкой на Java</p>
+        <a href="javascript.html" class="demo-btn">Начать обучение</a>
+      </div>
+    </div>
+  </section>
+
+  <section data-aos="fade-up">
+    <h2 class="section-title">Полные курсы программирования</h2>
+    <p style="text-align: center; margin-bottom: 40px; color: #aaa;">
+      Выберите курс и станьте востребованным специалистом
+    </p>
+    
+    <div class="courses-grid">
+      <div class="course-card" data-aos="fade-up">
+        <div class="course-badge">Популярный</div>
+        <div class="course-icon">🐍</div>
+        <h3 class="course-title">Python Developer</h3>
+        <p class="course-desc">
+          Полный курс Python: от основ до продвинутых тем. Веб-разработка, анализ данных, автоматизация.
+        </p>
+        <div class="course-meta">
+          <span>⏱️ 6 месяцев</span>
+          <span>👨‍🎓 120 уроков</span>
+        </div>
+        <div class="course-price">24 900 ₽</div>
+        <a href="оплата.html" class="buy-btn">Купить курс</a>
+      </div>
+      
+      <div class="course-card" data-aos="fade-up" data-aos-delay="100">
+        <div class="course-icon">{ }</div>
+        <h3 class="course-title">Professional C++</h3>
+        <p class="course-desc">
+          Глубокое погружение в C++: от основ до многопоточности и оптимизации производительности.
+        </p>
+        <div class="course-meta">
+          <span>⏱️ 8 месяцев</span>
+          <span>👨‍🎓 140 уроков</span>
+        </div>
+        <div class="course-price">29 900 ₽</div>
+        <a href="оплата.html" class="buy-btn">Купить курс</a>
+      </div>
+      
+      <div class="course-card" data-aos="fade-up" data-aos-delay="200">
+        <div class="course-badge">Новый</div>
+        <div class="course-icon">☕</div>
+        <h3 class="course-title">Java Enterprise</h3>
+        <p class="course-desc">
+          Разработка корпоративных приложений на Java: Spring, Hibernate, микросервисы.
+        </p>
+        <div class="course-meta">
+          <span>⏱️ 7 месяцев</span>
+          <span>👨‍🎓 130 уроков</span>
+        </div>
+        <div class="course-price">27 900 ₽</div>
+        <a href="оплата.html" class="buy-btn">Купить курс</a>
+      </div>
+      
+      <div class="course-card" data-aos="fade-up">
+        <div class="course-icon">📊</div>
+        <h3 class="course-title">Data Science</h3>
+        <p class="course-desc">
+          Анализ данных и машинное обучение на Python. Pandas, NumPy, Scikit-learn, TensorFlow.
+        </p>
+        <div class="course-meta">
+          <span>⏱️ 5 месяцев</span>
+          <span>👨‍🎓 90 уроков</span>
+        </div>
+        <div class="course-price">31 900 ₽</div>
+        <a href="оплата.html" class="buy-btn">Купить курс</a>
+      </div>
+      
+      <div class="course-card" data-aos="fade-up" data-aos-delay="100">
+        <div class="course-icon">🌐</div>
+        <h3 class="course-title">Fullstack JavaScript</h3>
+        <p class="course-desc">
+          React, Node.js, Express и MongoDB. Полный цикл разработки веб-приложений.
+        </p>
+        <div class="course-meta">
+          <span>⏱️ 6 месяцев</span>
+          <span>👨‍🎓 110 уроков</span>
+        </div>
+        <div class="course-price">26 900 ₽</div>
+        <a href="оплата.html" class="buy-btn">Купить курс</a>
+      </div>
+      
+      <div class="course-card" data-aos="fade-up" data-aos-delay="200">
+        <div class="course-badge">Акция</div>
+        <div class="course-icon">🤖</div>
+        <h3 class="course-title">Мобильная разработка</h3>
+        <p class="course-desc">
+          Kotlin для Android и Swift для iOS. Создание кроссплатформенных приложений.
+        </p>
+        <div class="course-meta">
+          <span>⏱️ 7 месяцев</span>
+          <span>👨‍🎓 140 уроков</span>
+        </div>
+        <div class="course-price">34 900 ₽ <span style="text-decoration: line-through; color: #777; font-size: 1rem;">39 900 ₽</span></div>
+        <a href="оплата.html" class="buy-btn">Купить курс</a>
+      </div>
+    </div>
+  </section>
+
+  <section data-aos="fade-up">
+    <div class="test-container">
+      <h2 class="section-title">Не можете выбрать курс?</h2>
+      <p style="text-align: center; margin-bottom: 40px; color: #aaa;">
+        Пройдите тест из 5 вопросов, и мы подберём курс, который лучше всего подходит именно вам
+      </p>
+      
+      <div class="test-progress">
+        <div class="test-progress-bar" id="testProgress"></div>
+      </div>
+      
+      <div class="test-question active" id="question1">
+        <h3>1. Какой у вас опыт в программировании?</h3>
+        <div class="test-options">
+          <div class="test-option" data-value="beginner">Полный новичок</div>
+          <div class="test-option" data-value="some">Немного знаком с основами</div>
+          <div class="test-option" data-value="intermediate">Есть опыт в одном языке</div>
+          <div class="test-option" data-value="advanced">Уверенно программирую</div>
+        </div>
+      </div>
+      
+      <div class="test-question" id="question2">
+        <h3>2. Что вас больше интересует?</h3>
+        <div class="test-options">
+          <div class="test-option" data-value="web">Веб-разработка (сайты, приложения)</div>
+          <div class="test-option" data-value="mobile">Мобильные приложения</div>
+          <div class="test-option" data-value="data">Анализ данных и AI</div>
+          <div class="test-option" data-value="system">Системное программирование</div>
+        </div>
+      </div>
+      
+      <div class="test-question" id="question3">
+        <h3>3. Какой график обучения вам подходит?</h3>
+        <div class="test-options">
+          <div class="test-option" data-value="fast">Интенсивный (3-4 часа в день)</div>
+          <div class="test-option" data-value="medium">Умеренный (1-2 часа в день)</div>
+          <div class="test-option" data-value="slow">Неспешный (несколько часов в неделю)</div>
+        </div>
+      </div>
+      
+      <div class="test-question" id="question4">
+        <h3>4. Какая цель обучения?</h3>
+        <div class="test-options">
+          <div class="test-option" data-value="job">Получить работу разработчика</div>
+          <div class="test-option" data-value="skills">Освоить новый навык</div>
+          <div class="test-option" data-value="project">Создать собственный проект</div>
+          <div class="test-option" data-value="hobby">Для себя, как хобби</div>
+        </div>
+      </div>
+      
+      <div class="test-question" id="question5">
+        <h3>5. Какой тип задач вам интереснее?</h3>
+        <div class="test-options">
+          <div class="test-option" data-value="logic">Логические задачи и алгоритмы</div>
+          <div class="test-option" data-value="design">Дизайн и визуальная часть</div>
+          <div class="test-option" data-value="math">Математика и анализ</div>
+          <div class="test-option" data-value="hardware">Работа с железом</div>
+        </div>
+      </div>
+      
+      <div class="test-result" id="testResult">
+        <div class="result-icon">🎉</div>
+        <h2 class="result-title">Вам подходит:</h2>
+        <div class="result-course">
+          <h3 class="result-course-title" id="resultCourse">Python Developer</h3>
+          <p id="resultDesc">Полный курс Python: от основ до продвинутых тем</p>
+        </div>
+        <p class="result-desc" id="resultReason">
+          На основе ваших ответов мы рекомендуем этот курс, так как он лучше всего соответствует вашим целям и уровню подготовки.
+        </p>
+        <a href="оплата.html" class="test-btn">Записаться на курс</a>
+      </div>
+      
+      <div class="test-nav">
+        <button class="test-btn" id="prevBtn" disabled>Назад</button>
+        <button class="test-btn" id="nextBtn">Далее</button>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © 2025 MINT. Все права защищены.
+  </footer>
+  <div class="scroll-top" id="scrollTop">↑</div>
+
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Анимация лого
+      document.getElementById('logo').addEventListener('click', function() {
+        const overlay = document.getElementById('logoOverlay');
+        overlay.querySelector('.logo-animation').textContent = 'КУРСЫ';
+        overlay.classList.add('active');
+        
+        setTimeout(() => {
+          overlay.classList.remove('active');
+        }, 2000);
+      });
+      
+      // Генерация частиц
+      const particlesContainer = document.getElementById('particles');
+      const particleCount = 20;
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+          
+        const size = Math.random() * 10 + 5;
+        const posX = Math.random() * 100;
+        const posY = Math.random() * 100;
+        const duration = Math.random() * 20 + 10;
+        const delay = Math.random() * 10;
+          
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.left = `${posX}%`;
+        particle.style.top = `${posY}%`;
+        particle.style.animationDuration = `${duration}s`;
+        particle.style.animationDelay = `${delay}s`;
+        particle.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--accent');
+        particle.style.opacity = '0.6';
+          
+        particlesContainer.appendChild(particle);
+      }
+      
+      // Инициализация AOS
+      AOS.init({
+        duration: 800,
+        easing: 'ease-in-out',
+        once: false
+      });
+      
+      // Логика теста
+      const questions = document.querySelectorAll('.test-question');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const progressBar = document.getElementById('testProgress');
+      const testResult = document.getElementById('testResult');
+      const resultCourse = document.getElementById('resultCourse');
+      const resultDesc = document.getElementById('resultDesc');
+      const resultReason = document.getElementById('resultReason');
+      
+      let currentQuestion = 0;
+      const answers = [];
+      
+      // Обновление прогресса
+      function updateProgress() {
+        const progress = ((currentQuestion) / questions.length) * 100;
+        progressBar.style.width = `${progress}%`;
+      }
+      
+      // Показать текущий вопрос
+      function showQuestion(index) {
+        questions.forEach((q, i) => {
+          q.classList.toggle('active', i === index);
+        });
+        
+        prevBtn.disabled = index === 0;
+        nextBtn.textContent = index === questions.length - 1 ? 'Получить результат' : 'Далее';
+        
+        updateProgress();
+      }
+      
+      // Обработчики выбора вариантов
+      document.querySelectorAll('.test-option').forEach(option => {
+        option.addEventListener('click', function() {
+          document.querySelectorAll(`#question${currentQuestion + 1} .test-option`).forEach(opt => {
+            opt.classList.remove('selected');
+          });
+          this.classList.add('selected');
+        });
+      });
+      
+      // Кнопка "Назад"
+      prevBtn.addEventListener('click', function() {
+        if (currentQuestion > 0) {
+          currentQuestion--;
+          showQuestion(currentQuestion);
+        }
+      });
+      
+      // Кнопка "Далее"
+      nextBtn.addEventListener('click', function() {
+        const selectedOption = document.querySelector(`#question${currentQuestion + 1} .test-option.selected`);
+        
+        if (!selectedOption && currentQuestion < questions.length) {
+          alert('Пожалуйста, выберите вариант ответа');
+          return;
+        }
+        
+        if (selectedOption) {
+          answers[currentQuestion] = selectedOption.dataset.value;
+        }
+        
+        if (currentQuestion < questions.length - 1) {
+          currentQuestion++;
+          showQuestion(currentQuestion);
+        } else {
+          // Показать результат
+          showTestResult();
+        }
+      });
+      
+      // Определение результата теста
+      function showTestResult() {
+        // Простая логика определения курса на основе ответов
+        let course, desc, reason;
+        
+        if (answers[1] === 'web') {
+          course = 'Fullstack JavaScript';
+          desc = 'React, Node.js, Express и MongoDB. Полный цикл разработки веб-приложений.';
+          reason = 'Ваш интерес к веб-разработке делает этот курс идеальным выбором.';
+        } else if (answers[1] === 'mobile') {
+          course = 'Мобильная разработка';
+          desc = 'Kotlin для Android и Swift для iOS. Создание кроссплатформенных приложений.';
+          reason = 'Исходя из вашего интереса к мобильным приложениям, мы рекомендуем этот курс.';
+        } else if (answers[1] === 'data') {
+          course = 'Data Science';
+          desc = 'Анализ данных и машинное обучение на Python. Pandas, NumPy, Scikit-learn.';
+          reason = 'Ваша склонность к анализу данных и математике делает этот курс оптимальным.';
+        } else if (answers[3] === 'job' && answers[0] === 'beginner') {
+          course = 'Python Developer';
+          desc = 'Полный курс Python: от основ до продвинутых тем. Веб-разработка, анализ данных.';
+          reason = 'Как новичку, вам подойдёт этот универсальный курс с хорошими перспективами трудоустройства.';
+        } else if (answers[4] === 'hardware' || answers[1] === 'system') {
+          course = 'Professional C++';
+          desc = 'Глубокое погружение в C++: от основ до многопоточности и оптимизации.';
+          reason = 'Ваш интерес к системному программированию и работе с железом делает C++ лучшим выбором.';
+        } else {
+          course = 'Java Enterprise';
+          desc = 'Разработка корпоративных приложений на Java: Spring, Hibernate, микросервисы.';
+          reason = 'Этот курс даст вам востребованные навыки для работы в крупных IT-компаниях.';
+        }
+        
+        resultCourse.textContent = course;
+        resultDesc.textContent = desc;
+        resultReason.textContent = reason;
+        
+        document.querySelector('.test-container').style.paddingBottom = '40px';
+        document.querySelector('.test-nav').style.display = 'none';
+        testResult.style.display = 'block';
+      }
+      
+      // Инициализация первого вопроса
+      showQuestion(0);
+    });
+  </script>
+</body>
+</html>

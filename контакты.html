@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MINT — Контакты</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Rubik:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .contact-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+    
+    .contact-card {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 30px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+    
+    .contact-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0, 255, 231, 0.2);
+    }
+    
+    .contact-icon {
+      font-size: 2.5rem;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+    
+    .contact-title {
+      color: var(--accent);
+      margin-bottom: 15px;
+      font-size: 1.3rem;
+    }
+    
+    .contact-info {
+      color: var(--text);
+      line-height: 1.6;
+    }
+    
+    .contact-link {
+      color: var(--accent);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    
+    .contact-link:hover {
+      text-decoration: underline;
+    }
+    
+    .chat-container {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 40px;
+      margin-top: 60px;
+      box-shadow: 0 0 20px rgba(0, 255, 204, 0.1);
+    }
+    
+    .chat-messages {
+      height: 300px;
+      overflow-y: auto;
+      margin-bottom: 20px;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    
+    .message {
+      max-width: 70%;
+      padding: 12px 16px;
+      border-radius: 12px;
+      line-height: 1.4;
+    }
+    
+    .message-support {
+      align-self: flex-start;
+      background: rgba(0, 255, 231, 0.1);
+      border: 1px solid rgba(0, 255, 231, 0.3);
+    }
+    
+    .message-user {
+      align-self: flex-end;
+      background: rgba(0, 255, 231, 0.2);
+      border: 1px solid var(--accent);
+    }
+    
+    .chat-input-container {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .chat-input {
+      flex: 1;
+      padding: 12px 16px;
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(0, 255, 231, 0.3);
+      border-radius: 8px;
+      color: var(--text);
+      font-family: 'Rubik', sans-serif;
+      transition: all 0.3s ease;
+    }
+    
+    .chat-input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 10px rgba(0, 255, 231, 0.2);
+    }
+    
+    .chat-submit {
+      background: var(--accent);
+      color: var(--bg);
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .chat-submit:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 255, 231, 0.3);
+    }
+    
+    .map-container {
+      margin-top: 60px;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(0, 255, 204, 0.1);
+      height: 400px;
+    }
+    
+    .map-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="logo-overlay" id="logoOverlay">
+    <div class="logo-animation">КОНТАКТЫ</div>
+  </div>
+  <div class="particles" id="particles"></div>
+  <header>
+    <h1 class="logo" id="logo">MINT</h1>
+    <nav>
+      <a href="index.html">Главная</a>
+      <a href="курсы.html#courses">Курсы</a>
+      <a href="отзывы.html">Отзывы</a>
+      <a href="контакты.html">Контакты</a>
+    </nav>
+    <button class="theme-toggle" id="themeToggle">
+      <span class="theme-icon">🌙</span>
+      <span class="theme-text">Тёмная</span>
+    </button>
+  </header>
+
+  <section data-aos="fade-up">
+    <h2 class="section-title">Свяжитесь с нами</h2>
+    <p style="text-align: center; margin-bottom: 40px; color: #aaa;">Мы всегда рады помочь и ответить на ваши вопросы</p>
+    
+    <div class="contact-cards">
+      <div class="contact-card" data-aos="fade-up">
+        <div class="contact-icon">📧</div>
+        <h3 class="contact-title">Email</h3>
+        <p class="contact-info">
+          <a href="mailto:info@mint.edy" class="contact-link">info@mint.edu</a>
+        </p>
+      </div>
+      
+      <div class="contact-card" data-aos="fade-up" data-aos-delay="100">
+        <div class="contact-icon">📱</div>
+        <h3 class="contact-title">Телефон</h3>
+        <p class="contact-info">
+          <a href="tel:+78001234567" class="contact-link">+7 (800) 123-45-67</a>
+        </p>
+      </div>
+      
+      <div class="contact-card" data-aos="fade-up" data-aos-delay="200">
+        <div class="contact-icon">📍</div>
+        <h3 class="contact-title">Адрес</h3>
+        <p class="contact-info">
+          Москва, ул. Программистов, 42<br>
+          БЦ "Код", офис 404
+        </p>
+      </div>
+    </div>
+    
+    <div class="chat-container" data-aos="fade-up">
+      <h3 style="text-align: center; margin-bottom: 30px; color: var(--accent);">Чат поддержки</h3>
+      <div id="chat-messages" class="chat-messages">
+        <div class="message message-support">
+          Здравствуйте! Чем мы можем вам помочь?
+        </div>
+      </div>
+      <div class="chat-input-container">
+        <input type="text" id="chat-input" class="chat-input" placeholder="Введите ваше сообщение...">
+        <button id="chat-submit" class="chat-submit">Отправить</button>
+      </div>
+    </div>
+    
+    <div class="map-container" data-aos="fade-up">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2245.373789919745!2d37.61842331593095!3d55.75367628055298!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46b54a5a738fa419%3A0x7c347d506f52311f!2z0JrRgNCw0YHQvdCw0Y8g0J_RgNC10YHQvdC40LrQsA!5e0!3m2!1sru!2sru!4v1620000000000!5m2!1sru!2sru" allowfullscreen="" loading="lazy"></iframe>
+    </div>
+  </section>
+
+  <footer>
+    © 2025 MINT. Все права защищены.
+  </footer>
+  <div class="scroll-top" id="scrollTop">↑</div>
+
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script src="script.js"></script>
+  <script>
+    // Инициализация AOS
+    AOS.init();
+    
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('logo').addEventListener('click', function() {
+        const overlay = document.getElementById('logoOverlay');
+        overlay.querySelector('.logo-animation').textContent = 'КОНТАКТЫ';
+        overlay.classList.add('active');
+        
+        setTimeout(() => {
+          overlay.classList.remove('active');
+        }, 2000);
+      });
+      
+      // Генерация частиц
+      const particlesContainer = document.getElementById('particles');
+      const particleCount = 20;
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+          
+        const size = Math.random() * 10 + 5;
+        const posX = Math.random() * 100;
+        const posY = Math.random() * 100;
+        const duration = Math.random() * 20 + 10;
+        const delay = Math.random() * 10;
+          
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.left = `${posX}%`;
+        particle.style.top = `${posY}%`;
+        particle.style.animationDuration = `${duration}s`;
+        particle.style.animationDelay = `${delay}s`;
+        particle.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--accent');
+        particle.style.opacity = '0.6';
+          
+        particlesContainer.appendChild(particle);
+      }
+      
+      // Чат поддержки
+      const chatMessages = document.getElementById('chat-messages');
+      const chatInput = document.getElementById('chat-input');
+      const chatSubmit = document.getElementById('chat-submit');
+      
+      function addMessage(text, isUser = false) {
+        const message = document.createElement('div');
+        message.classList.add('message');
+        message.classList.add(isUser ? 'message-user' : 'message-support');
+        message.textContent = text;
+        chatMessages.appendChild(message);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+      
+      chatSubmit.addEventListener('click', sendMessage);
+      chatInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') sendMessage();
+      });
+      
+      function sendMessage() {
+        const message = chatInput.value.trim();
+        if (!message) return;
+        
+        addMessage(message, true);
+        chatInput.value = '';
+        
+        // Имитация ответа поддержки
+        setTimeout(() => {
+          const responses = [
+            "Спасибо за ваше сообщение! Мы ответим вам в ближайшее время.",
+            "Поняли ваш вопрос. Наш специалист уже работает над ответом.",
+            "Вы можете найти ответ на ваш вопрос в нашем FAQ.",
+            "Мы ценим ваше обращение. Как еще можем помочь?",
+            "Ваш вопрос передан соответствующему специалисту."
+          ];
+          
+          const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+          addMessage(randomResponse, false);
+        }, 1000 + Math.random() * 2000);
+      }
+      
+      // Загрузка сохраненных сообщений чата
+      const savedChat = JSON.parse(localStorage.getItem('mintChat')) || [];
+      savedChat.forEach(msg => {
+        addMessage(msg.text, msg.isUser);
+      });
+      
+      // Сохранение сообщений чата
+      function saveChatMessage(text, isUser) {
+        const chat = JSON.parse(localStorage.getItem('mintChat')) || [];
+        chat.push({ text, isUser });
+        localStorage.setItem('mintChat', JSON.stringify(chat));
+      }
+    });
+  </script>
+</body>
+</html>
